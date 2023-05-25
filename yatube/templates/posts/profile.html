@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock  %}
+{% block content %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html lang="ru"> 
+  <body>       
+    <main>
+      <div class="container py-5">
+        {% csrf_token %}
+        {% for post in page_obj %}
+        {% if forloop.first %}
+        <div class="mb-5">        
+          <h1>Все посты пользователя: {{author.get_full_name}} </h1>
+          <h3>Всего постов: {{author.course.count}}  </h3>
+          <!-- {% if following %}
+            <a
+              class="btn btn-lg btn-light"
+              href="{% url 'posts:profile_unfollow' author.username %}" role="button"
+            >
+              Отписаться
+            </a>
+          {% else %}
+              <a
+                class="btn btn-lg btn-primary"
+                href="{% url 'posts:profile_follow' author.username %}" role="button"
+              >
+                Подписаться
+              </a>
+          {% endif %} -->
+        </div>
+        {% endif %}   
+        <article>  
+          <ul>
+            <li>
+              Автор: {{author.get_full_name}}
+              <a href="{% url 'posts:profile' post.author %}">все посты пользователя </a>
+            </li>
+            <li>
+              Дата публикации: {{post.pub_date|date:'d E Y'}} 
+            </li>
+          </ul>
+            <table ali class="table table-hover table-bordered">
+              <caption>Курсовая строевка {{post.name}} </caption>
+              <thead align="center">
+                <tr>
+                  <th  scope="col" rowspan="2"></th>
+                  <th scope="col" rowspan="2">По списку</th>
+                  <th scope="col" rowspan="2">На лицо </th>
+                  <th scope="col" rowspan="2" >Отсуствуют</th>
+                  <th scope="col" colspan="7" >Причина отсутствия</th>
+                </tr>
+                <tr>
+                  <th scope="col">Больные</th>
+                  <th scope="col">Наряд</th>
+                  <th scope="col">Командировка</th>
+                  <th scope="col">Отпуск</th>
+                  <th scope="col" >Спорт</th>
+                  <th scope="col" >Практика</th>
+                  <th scope="col" >Рапорт</th>
+                </tr>
+              </thead>
+                <tbody align="center">
+                <tr>
+                  <th  scope="row">Итого</th>
+                  <td>{{post.on_list}}</td>
+                  <td>{{post.on_list_fact}}</td>
+                  <td>{{post.sport}}</td>
+                  <td>{{post.komandirovka}}</td>
+                  <td>{{post.bolinoy}}</td>
+                  <td>{{post.otpusk}}</td>
+                  <td>{{post.praktika}}</td>
+                  <td>{{post.raport}}</td>
+                  <td>{{post.on_list}}</td>
+                  <td>{{post.on_list}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="col-sm-3">
+              <iframe height="500" width="1300" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT-6SgVedB8mtX0OjcsAnwLkZK_qwb7O7WRyscxcn9zgBII5fP_KUOOf-NpnUVhFZ_qhy91rZiC3aIu/pubhtml?gid=2112834994&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+            </div>
+          <!-- <p>
+            {{post.text}}
+          </p>
+          {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
+            <img class="card-img my-2" src="{{ im.url }}">
+          {% endthumbnail %}
+          <a href="{% url 'posts:post_detail' post.pk %}">подробная информация {{post.pk}}</a><br>
+          {% if post.group %} 
+          <a href= "{% url 'posts:group_posts' post.group.slug %}">все записи группы {{post.group.title}}</a>
+          {% endif %}  -->
+          {% if not forloop.last %}<hr>{% endif %}
+        {% endfor %}      
+        </article>       
+      </div>
+      {% include 'posts/includes/paginator.html' %}
+    </main>
+  </body>
+</html>
+{% endblock  %}

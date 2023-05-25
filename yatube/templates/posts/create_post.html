@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock  %}
+{% block content %}
+{% load thumbnail %}
+<html lang="ru"> 
+    <main>
+      <div class="container py-5">
+        <div class="row justify-content-center">
+          <div class="col-md-8 p-5">
+            <div class="card">
+              <div class="card-header"> 
+              {% if is_edit %}      
+                Редактировать пост
+              {% else %}
+                Новый пост
+              {% endif %}             
+              </div>
+              <div class="card-body">   
+                {% if is_edit %}
+                  {% if post.author == request.user %}
+                    <form method="post" enctype="multipart/form-data" action="{% url 'posts:post_edit' post.id%}">{% csrf_token %}
+                  {% else %}
+                    <form method="post" enctype="multipart/form-data" action="{% url 'posts:post_detail' post.id %}">{% csrf_token %}
+                  {% endif %}
+                {% else %}
+                  <form method="post" enctype="multipart/form-data" action="{% url 'posts:post_create' %}">{% csrf_token %}
+                {% endif %}
+                  <input type="hidden" name="csrfmiddlewaretoken" value="Сохранить">            
+                  <div class="form-group row my-3 p-3">
+                    <label for="id_text">
+                      Курс                  
+                      <span class="required text-danger" >*</span>                  
+                    </label>
+                    {{form.name}}               
+                    <small id="id_text-help" class="form-text text-muted">
+                      Курс
+                    </small>                  
+                  </div>
+                  <div class="form-on_list row my-3 p-3">
+                    <label for="id_text">
+                      По списку                   
+                      <span class="required text-danger" >*</span>                  
+                    </label>
+                    {{form.on_list}}               
+                    <small id="id_on_list-help" class="form-text text-muted">
+                      По списку
+                    </small>                  
+                  </div>
+                  <div class="form-on_list row my-3 p-3">
+                    <label for="id_text">
+                      На лицо                  
+                      <span class="required text-danger" >*</span>                  
+                    </label>
+                    {{form.on_list_fact}}               
+                    <small id="id_on_list-help" class="form-text text-muted">
+                      На лицо
+                    </small>                  
+                  </div>
+                  <div class="form-group row my-3 p-3">
+                    <label for="id_group">
+                      Группа                  
+                    </label>
+                    {{form.sport}}
+                    <small id="id_group-help" class="form-text text-muted">
+                      Группа, к которой будет относиться пост
+                    </small>
+                  </div>
+                  <div class="form-on_list row my-3 p-3">
+                    <label for="id_text">
+                      Командировка                   
+                      <span class="required text-danger" >*</span>                  
+                    </label>
+                    {{form.komandirovka}}               
+                    <small id="id_on_list-help" class="form-text text-muted">
+                      Убывшие на командировку
+                    </small>                  
+                  </div>
+                  <div class="form-on_list row my-3 p-3">
+                    <label for="id_text">
+                      Больные                   
+                      <span class="required text-danger" >*</span>                  
+                    </label>
+                    {{form.bolinoy}}               
+                    <small id="id_on_list-help" class="form-text text-muted">
+                      Больные учащиеся
+                    </small>                  
+                  </div>
+                  <div class="form-on_list row my-3 p-3">
+                    <label for="id_text">
+                      отпуск                   
+                      <span class="required text-danger" >*</span>                  
+                    </label>
+                    {{form.otpusk}}               
+                    <small id="id_on_list-help" class="form-text text-muted">
+                      Убывшие в отпуск
+                    </small>                  
+                  </div>
+                  <div class="form-on_list row my-3 p-3">
+                    <label for="id_text">
+                      Практика                   
+                      <span class="required text-danger" >*</span>                  
+                    </label>
+                    {{form.praktika}}               
+                    <small id="id_on_list-help" class="form-text text-muted">
+                      Убывшие на практику
+                    </small>                  
+                  </div>
+                  <div class="form-on_list row my-3 p-3">
+                    <label for="id_text">
+                      Рапорт                                     
+                    </label>
+                    {{form.raport}}               
+                    <small id="id_on_list-help" class="form-text text-muted">
+                      Убывшие по рапорту
+                    </small>                  
+                  </div>            
+                  <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">
+                    {% csrf_token %}
+                    {% if is_edit %}
+                      Редактировать
+                    {% else %}
+                      Сохранить
+                    {% endif %}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+{% endblock %}

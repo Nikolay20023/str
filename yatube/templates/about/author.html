@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Технологии{% endblock  %}
+{% block content %}
+<table align="center" class="table table-bordered">
+  <caption>Факультетская строевка</caption>
+  <thead align="center">
+    <tr>
+      <th scope="col" rowspan="2"></th>
+      <th scope="col" rowspan="2">По штату</th>
+      <th scope="col" rowspan="2">По списку</th>
+      <th scope="col" rowspan="2">Направление подготовки</th>
+      <th scope="col" rowspan="2">На лицо </th>
+      <th scope="col" rowspan="2" >Отсуствуют</th>
+      <th scope="col" colspan="7" >Причина отсутствия</th>
+    </tr>
+    <tr>
+      <th scope="col">Больные</th>
+      <th scope="col">Наряд</th>
+      <th scope="col">Командировка</th>
+      <th scope="col">Отпуск</th>
+      <th scope="col" >Спорт</th>
+      <th scope="col" >Учебная Практика</th>
+      <th scope="col" >Другие причины</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for post in courses %}
+    <tr>
+      <th scope="row">{{post.name}}</th>
+      {% if forloop.first%}
+        <td >964</td>
+      {% else %}
+        <td></td>
+      {% endif %}
+      <td>{{post.on_list}}</td>
+      <td>{{post.napravlenie_podgotovki}}</td>
+      <td>{{post.on_list_fact}}</td>
+      <td>{{post.sport}}</td>
+      <td>{{post.bolinoy}}</td>
+      <td>{{post.bolinoy}}</td>
+      <td>{{post.komandirovka}}</td>
+      <td>{{post.praktika}}</td>
+      <td>{{post.raport}}</td>
+      <td>{{post.bolinoy}}</td>
+      <td>{{post.sport}}</td>
+    </tr>
+    {% endfor %}
+    {% if forloop.last%}
+      <p> asdasd</p>
+    {% endif %}
+  </tbody>
+</table>
+<div class="col-sm-4" >
+  <iframe width="1920" height="1080" allowfullscreen  src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT-6SgVedB8mtX0OjcsAnwLkZK_qwb7O7WRyscxcn9zgBII5fP_KUOOf-NpnUVhFZ_qhy91rZiC3aIu/pubhtml?gid=170954406&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+</div>
+{% endblock  %}
